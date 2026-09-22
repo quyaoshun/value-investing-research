@@ -1,6 +1,6 @@
 # Comparative research protocol
 
-Use this when the request compares two or more securities.
+Use this when the request compares two or more securities. Apply SKILL.md language selection to both companies consistently; use the same translated metric names and monetary scale across comparison tables.
 
 ## Same-basis gate
 Before comparing, force the same price date, reporting currency treatment, diluted-share convention, ADS conversion, FCF definition, cash/debt definition, and LTM/forward period. Any mismatch must be flagged before conclusions.

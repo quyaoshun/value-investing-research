@@ -1,11 +1,23 @@
 ---
 name: value-investing-research
-description: Deep fundamental and comparative equity research for US-listed stocks and ADRs using Graham-Dodd, Buffett owner earnings, reality-anchor tests, three-lens trend checks, strategic-loss verification, capital-allocation-adjusted cash, DCF/EPV/Graham/tangible-book cross-checks, forced falsification, and event-driven monitoring. Use for single-stock value-investing reports, intrinsic-value analysis, or apples-to-apples comparisons between two or more stocks. Do not use for short-term trading signals or personalized investment instructions.
+description: >-
+  Fundamental value-investing research for US-listed stocks and ADRs, in English or Chinese.
+  Use for single-company reports, intrinsic valuation, owner earnings, or same-basis stock comparisons.
+  中英文价值投资研究：适用于美股及 ADR 公司深度分析、内在价值估算、所有者盈余及同口径股票对比。
+  Uses Graham-Dodd, Buffett, reality anchors, and falsification; excludes short-term trading signals.
 ---
 
-# Value Investing Research v2.0
+# Value Investing Research v2.1 / 价值投资研究
 
 Produce source-driven, auditable value-investing research. The goal is not to tell a persuasive story; it is to expose what is known, what is estimated, what cannot be verified, what the valuation assumes, and what future evidence would overturn the conclusion.
+
+## Language selection / 语言选择
+
+- Honor the user's explicit output-language request first, including English, 简体中文, 繁體中文, or bilingual output, even when the request is written in another language.
+- Otherwise use the language of the user's substantive request. For mixed Chinese/English, use the main prose language; tickers, financial acronyms, quoted sources, and this skill's default prompt do not determine the output language. Preserve the user's Chinese script.
+- For a ticker-only request, retain the conversation's established language; if there is none, default to English. Do not interrupt research solely to ask about language.
+- Apply the selected language to headings, narrative, table labels, risk/status explanations, and the final note. Read `references/language-guide.md` for terminology, unit conversion, and bilingual formatting.
+- Keep the research methodology and evidentiary standard identical across languages. Translate presentation, never change assumptions, formulas, source dates, or conclusions merely to suit a language.
 
 ## 0. Mandatory data integrity gate
 
@@ -167,4 +179,4 @@ Use `scripts/valuation.py` when useful. Show formulas, units and source dates. R
 
 ## 14. Output
 
-Follow `references/report-structure.md`. Write in Chinese when the user writes in Chinese unless asked otherwise. Separate facts, assumptions, calculations, third-party estimates, and interpretations. Use compact tables for comparisons. Avoid hype, certainty language, and personalized buy/sell instructions. End with a source table and non-advisory note.
+Follow `references/report-structure.md` and the language-selection rules above. Reference headings are structural guidance, not a requirement to output English. Separate facts, assumptions, calculations, third-party estimates, and interpretations. Use compact tables for comparisons. Avoid hype, certainty language, and personalized buy/sell instructions. End with a source table and non-advisory note.

@@ -1,4 +1,6 @@
-# Report structure v2.0
+# Report structure v2.1
+
+Render every section and table label in the language selected by SKILL.md. For requested bilingual output, share one set of figures and sources; follow `language-guide.md`.
 
 1. Cover / metadata: company, ticker, as-of date, framework version, filing dates, price, FX, reporting currency, ADS ratio.
 2. One-page executive summary: key facts, intrinsic-value range/central estimate, margin of safety, thesis, disconfirming facts, two key monitoring variables. For comparisons, use a side-by-side table.
