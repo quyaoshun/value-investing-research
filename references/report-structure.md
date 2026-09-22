@@ -1,40 +1,41 @@
-# Report structure v2.1
+# 报告结构 v2.2 / Report Structure
 
-Render every section and table label in the language selected by SKILL.md. For requested bilingual output, share one set of figures and sources; follow `language-guide.md`.
+所有章节与表头均使用 `SKILL.md` 选定的输出语言。双语报告共用一套数字和来源，具体遵循 `language-guide.md`。
 
-1. Cover / metadata: company, ticker, as-of date, framework version, filing dates, price, FX, reporting currency, ADS ratio.
-2. One-page executive summary: key facts, intrinsic-value range/central estimate, margin of safety, thesis, disconfirming facts, two key monitoring variables. For comparisons, use a side-by-side table.
-3. Data integrity & comparability gate: currency/share/ADS reconciliation, source hierarchy, `[R]/[C]/[E]/[3P]` legend, segment-definition breaks.
-4. Business-model physics: revenue model, margins, asset/capital intensity, employee productivity, working-capital model, competitive positioning.
-5. Earnings power & strategic losses: annual + 6-8 quarters, normalization bridge, strategic-loss map, controllability, disclosure quality.
-6. Reality-anchor test: latest actual annualized vs steady-state assumption; mark unavailable inputs as failed/unverifiable.
-7. Trend three-lens: YoY, QoQ, YTD annualized/LTM; explain conflicts/base effects; surprise history if reliable.
-8. Balance sheet & cash-flow quality: liquidity, leverage, asset quality, NCAV/F-Score where meaningful, OCF/FCF bridge, owner earnings.
-9. Capital allocation & cash accessibility: dividends, repurchases, dilution/SBC, excess cash, explicit cash-haircut sensitivity and reversal trigger.
-10. ROIC/WACC & competitive durability: normalized returns, reinvestment, competitor response.
-11. Intrinsic value: DCF bear/base/bull, EPV, Graham-style formula if applicable, tangible book/liquidation anchor, cross-validation, sensitivity.
-12. Comparative synthesis (when applicable): same-basis valuation, valuation-convergence bridge, risk mirror, verifiability trade-offs.
-13. Forced falsification: most fragile assumption, reversal threshold, strongest counterargument, next 1-2 reporting-period adjudication tests.
-14. Monitoring dashboard: 3-6 measurable metrics, thresholds/directions, next event/date, action on thesis if triggered.
-15. Appendices: formulas, assumptions, data corrections, revision log, source table, third-party-estimate register.
+1. 封面与基础信息：公司、代码、基准日、框架版本、财报日期、股价、汇率、财报币种、ADS 比例。
+2. 一页摘要：关键事实、内在价值区间与中枢、安全边际、核心判断、反证、两个关键监测变量。多公司比较采用并列表格。
+3. 数据完整性与可比性：币种、股本及 ADS 换算核对，来源优先级，`[R]/[C]/[E]/[3P]` 图例，分部口径变化。
+4. 商业模式与经济结构：收入模式、利润率、资产与资本密集度、人均产出、营运资本、竞争地位。
+5. 盈利能力与战略亏损：年度及最近 6–8 个季度数据，正常化调整表，战略亏损业务分布、可控性与披露质量。
+6. 现实锚检验：最新实际值年化与稳态假设比较；输入缺失时标记检验未通过或不可验证。
+7. 趋势三口径：同比、环比、YTD 年化或 LTM，解释冲突与基数效应；有可靠数据时列示业绩相对预期的偏差。
+8. 资产负债表与现金流质量：流动性、杠杆、资产质量、适用的 NCAV/F-Score、OCF 到 FCF 的调整、所有者盈余。
+9. 资本配置与现金可用性：分红、回购、稀释与 SBC、超额现金、单列现金折价敏感性及失效触发条件。
+10. ROIC/WACC 与竞争持续性：正常化回报、再投资、竞争对手的回应。
+11. 内在价值：DCF 悲观/基准/乐观情景，EPV，适用的 Graham 公式，有形账面或清算价值，交叉验证与敏感性。
+12. 综合比较（适用时）：同口径估值、估值趋同的原因、风险对照、可验证性的取舍。
+13. 强制自证伪：最脆弱假设、反转阈值、最强反方论证、未来 1–2 个财报期的验证方式。
+14. 监测看板：3–6 个可量化指标、阈值或方向、下一事件或日期，以及触发后如何修订投资判断。
+15. 附录：公式、假设、数据纠错、修订记录、来源表、第三方估计清单。
 
-## Recommended tables
-- Annual income statement and margins (3-5 years)
-- Recent 6-8 quarters
-- Business-model physics comparison
-- Segment revenue/profit bridge
-- Strategic-loss and disclosure map
-- Reality-anchor table
-- Three-lens trend table
-- Normalization bridge
-- OCF working-capital contribution
-- Balance-sheet safety metrics
-- Owner-earnings bridge
-- ROIC/WACC bridge
-- Dividend/buyback/dilution history
-- Excess-cash haircut sensitivity
-- DCF scenario assumptions and values
-- Valuation cross-check
-- Dominant-assumption sensitivity/reversal threshold
-- Risk mirror
-- Falsification/monitoring checklist
+## 建议表格
+
+- 最近 3–5 年利润表及利润率
+- 最近 6–8 个季度经营数据
+- 商业模式与经济结构对比
+- 分部收入及利润调整表
+- 战略亏损与披露情况
+- 现实锚检验表
+- 趋势三口径表
+- 盈利正常化调整表
+- 营运资本对 OCF 的贡献
+- 资产负债表安全指标
+- 所有者盈余计算表
+- ROIC/WACC 计算与比较
+- 分红、回购及稀释历史
+- 超额现金折价敏感性
+- DCF 情景假设与估值
+- 多方法估值交叉检查
+- 关键假设敏感性与反转阈值
+- 风险对照表
+- 自证伪及监测清单

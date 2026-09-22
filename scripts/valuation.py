@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""Deterministic helpers for value-investing research. Standard library only."""
+"""价值投资研究的确定性计算工具，仅依赖 Python 标准库。
+Deterministic valuation helpers; standard library only."""
 from __future__ import annotations
 import argparse, json
 
@@ -43,14 +44,14 @@ if __name__=="__main__": main()
 
 
 def adjusted_cash(excess_cash, haircut):
-    """Shareholder value of excess cash after explicit capital-allocation haircut."""
+    """超额现金经资本配置折价后的股东价值（adjusted excess cash）。"""
     return excess_cash * (1.0 - haircut)
 
 def reality_anchor_ratio(steady_state, latest_quarter_actual):
-    """Compare a steady-state assumption with annualized latest-quarter actual."""
+    """比较稳态假设与最新季度实际值年化数（reality-anchor ratio）。"""
     annualized = latest_quarter_actual * 4.0
     return steady_state / annualized if annualized != 0 else None
 
 def adjusted_ev(market_cap, debt, excess_cash, haircut=0.0):
-    """EV using only the shareholder-valued portion of excess cash."""
+    """仅扣除超额现金中归属股东价值部分的企业价值（adjusted EV）。"""
     return market_cap + debt - adjusted_cash(excess_cash, haircut)

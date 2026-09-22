@@ -1,27 +1,31 @@
-# Comparative research protocol
+# 多公司比较规范 / Comparative Research Protocol
 
-Use this when the request compares two or more securities. Apply SKILL.md language selection to both companies consistently; use the same translated metric names and monetary scale across comparison tables.
+比较两家或更多公司时使用。按 `SKILL.md` 统一输出语言；所有比较表使用相同的指标译名和金额单位。
 
-## Same-basis gate
-Before comparing, force the same price date, reporting currency treatment, diluted-share convention, ADS conversion, FCF definition, cash/debt definition, and LTM/forward period. Any mismatch must be flagged before conclusions.
+## 同口径检查
 
-## Comparison sequence
-1. Business-model physics: revenue model, gross margin, net margin, employees, capex/revenue, inventory/fixed assets, revenue/profit per employee.
-2. Valuation bridge: P/S → margin structure → forward P/E / EV-FCF / FCF yield. Ask whether upstream multiple differences disappear at cash-earnings level.
-3. Strategic-loss map: amount, disclosure, controllability, latest actual run-rate, reality-anchor test, third-party dependence.
-4. Capital allocation: excess cash as % market cap, dividends, repurchases, dilution, management return policy, cash haircut sensitivity.
-5. Predictability: 6-8 quarters, YoY/QoQ/YTD or LTM, surprise dispersion where reliable.
-6. Risk mirror: distinguish internal controllable risks from external policy/macro risks; distinguish observable from unobservable risks.
-7. Falsification: identify one thesis-critical assumption for each company and a common next adjudication date/event when possible.
+比较前统一股价日期、财报币种处理、稀释股本口径、ADS 换算、FCF 定义、现金与债务定义，以及 LTM 或预测期间。存在差异时，必须在结论前说明。
 
-## Required comparison outputs
-- One-page side-by-side summary.
-- Same-basis valuation table.
-- Business-quality table without turning it into a single score.
-- Strategic-loss/verifiability table.
-- Capital-allocation-adjusted EV/FCF or equivalent sensitivity when excess cash is material.
-- Risk mirror table.
-- “What would change the conclusion?” table with metric, threshold, disclosure date/event, and valuation implication.
+## 比较顺序
 
-## Discipline
-Do not say a company is cheaper solely because one headline multiple is lower. Do not treat undisclosed strategic losses as zero. Do not treat all cash at par when management has explicitly restricted shareholder returns. Do not hide governance or verifiability concerns inside WACC if they can be shown as explicit scenario/haircut adjustments.
+1. 商业模式与经济结构：收入模式、毛利率、净利率、员工数、资本开支占收入比例、存货与固定资产、人均收入和利润。
+2. 估值传导：P/S → 利润率结构 → 远期 P/E、EV/FCF、FCF 收益率。检查收入层面的估值差异是否在现金盈利层面消失。
+3. 战略亏损：金额、披露情况、可控性、最新实际经营水平、现实锚检验、对第三方估计的依赖。
+4. 资本配置：超额现金占市值比例、分红、回购、稀释、管理层股东回报政策、现金折价敏感性。
+5. 可预测性：最近 6–8 个季度、同比/环比/YTD 或 LTM；有可靠数据时分析业绩相对预期偏差的离散程度。
+6. 风险对照：区分内部可控风险与外部政策、宏观风险，以及可观察与不可观察风险。
+7. 自证伪：为每家公司找出一个决定投资判断的关键假设；条件允许时设置共同的下一次验证日期或事件。
+
+## 必须输出的比较内容
+
+- 一页并列摘要。
+- 同口径估值表。
+- 企业质量比较表，不合成为单一评分。
+- 战略亏损及可验证性表。
+- 超额现金重要时，展示资本配置调整后的 EV/FCF 或等效指标敏感性。
+- 风险对照表。
+- “什么会改变结论？”表，包含指标、阈值、披露日期或事件，以及估值影响。
+
+## 研究纪律
+
+不得仅因某个表面倍数较低就认定更便宜；不得将未披露的战略亏损视为零。管理层明确限制股东回报时，不得默认所有现金均按面值计入股东价值。治理与可验证性问题可通过情景或折价单列时，不得隐藏在 WACC 中。

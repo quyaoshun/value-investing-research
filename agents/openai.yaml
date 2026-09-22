@@ -1,6 +1,6 @@
 interface:
-  display_name: "Value Investing Research · 价值投资研究"
-  short_description: "中英文价值投资研究 · Equity research in Chinese & English"
-  default_prompt: "Use $value-investing-research to analyze the company or compare stocks in my requested or conversation language. / 分析公司或对比股票，按我指定或当前对话的语言输出。"
+  display_name: "价值投资研究 · Value Investing Research"
+  short_description: "中英文价值投资研究：公司分析与估值对比 / Equity research"
+  default_prompt: "请用 $value-investing-research 分析公司或对比股票，按我指定或当前对话的语言输出；支持 English reports。"
 policy:
   allow_implicit_invocation: true

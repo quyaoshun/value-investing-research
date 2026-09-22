@@ -1,17 +1,10 @@
-# Value Investing Research v2.1 / 价值投资研究
+# 价值投资研究 v2.2 / Value Investing Research
 
-Installable agent skill for rigorous single-stock and comparative value-investing research, in English or Chinese.
+以中文为主编写的价值投资研究 Skill，支持美股及 ADR 单公司深度分析与同口径股票对比，也支持完整英文报告。
 
-支持中英文的单公司价值投资研究与同口径股票对比。明确指定的输出语言优先；否则跟随提问语言，支持简体、繁体及按需双语输出。中英文使用相同的研究流程和计算口径。
+研究框架包含 Graham-Dodd、巴菲特所有者盈余、现实锚检验、趋势三口径、战略亏损分析、超额现金折价、多方法估值交叉验证，以及带反转阈值的强制自证伪。
 
-v2.0 adds: mandatory reality-anchor tests, three-lens trend analysis, strategic-loss controllability/disclosure mapping, explicit capital-allocation haircuts for excess cash, same-basis comparison mode, valuation-convergence analysis, forced falsification with reversal thresholds, and event-driven monitoring.
-
-Example:
-`$value-investing-research compare PDD and JD using the latest filings, same-date valuation, reality-anchor tests, cash-accessibility adjustments, and forced falsification.`
-
-v2.1 adds bilingual discovery and UI metadata, explicit language selection, consistent financial terminology, and safeguards for Chinese/English monetary scales.
-
-v2.1 新增中英文触发与展示、输出语言选择、财务术语对照及金额单位换算规则。
+v2.2 将主流程、参考文档、界面提示及脚本说明改为中文优先，保留必要英文术语、英文使用示例与安装说明。明确指定的输出语言优先；否则跟随提问语言，支持简体、繁体及按需双语输出。
 
 ## 安装到 Codex
 
@@ -76,11 +69,11 @@ $value-investing-research Compare PDD and JD. Use a Chinese body with an English
 $value-investing-research 对比 PDD 和 JD，输出中英双语报告，共用一套估值数据和来源。
 ```
 
-股票代码、英文财报或英文默认提示不会覆盖用户的语言选择；只有股票代码时沿用当前对话语言，无对话语言时默认英文。
+股票代码、英文财报或英文默认提示不会覆盖用户的语言选择；只有股票代码时沿用当前对话语言，无对话语言时默认中文。
 
-## Installation (English)
+## 英文安装说明 / Installation (English)
 
-The repository root is the complete Skill. For this private repository, authenticate with a GitHub account that has access.
+This Skill is authored primarily in Chinese and supports full English reports with the same methodology. The repository root is the complete Skill. For this private repository, authenticate with a GitHub account that has access.
 
 Ask Codex:
 
@@ -95,9 +88,9 @@ mkdir -p "$HOME/.agents/skills"
 gh repo clone quyaoshun/value-investing-research "$HOME/.agents/skills/value-investing-research"
 ```
 
-## Usage and package contents (English)
+## 英文使用说明 / Usage and package contents (English)
 
-Explicit output-language instructions take precedence over the language of the prompt. Otherwise the report follows the substantive request language, preserving Simplified or Traditional Chinese. Mixed-language prompts use the main prose language. Ticker-only prompts inherit the conversation language, defaulting to English when none exists. Bilingual reports are produced when requested and share figures, assumptions, and sources.
+Explicit output-language instructions take precedence over the language of the prompt. Otherwise the report follows the substantive request language, preserving Simplified or Traditional Chinese. Mixed-language prompts use the main prose language. Ticker-only prompts inherit the conversation language, defaulting to Chinese when none exists. Bilingual reports are produced when requested and share figures, assumptions, and sources.
 
 - `SKILL.md`: research workflow, evidence requirements, and language selection.
 - `agents/openai.yaml`: bilingual display metadata and default prompt.

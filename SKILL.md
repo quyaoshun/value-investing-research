@@ -1,182 +1,182 @@
 ---
 name: value-investing-research
 description: >-
-  Fundamental value-investing research for US-listed stocks and ADRs, in English or Chinese.
-  Use for single-company reports, intrinsic valuation, owner earnings, or same-basis stock comparisons.
   中英文价值投资研究：适用于美股及 ADR 公司深度分析、内在价值估算、所有者盈余及同口径股票对比。
-  Uses Graham-Dodd, Buffett, reality anchors, and falsification; excludes short-term trading signals.
+  采用 Graham-Dodd、巴菲特所有者盈余、现实锚检验和强制自证伪框架，不适用于短线交易信号。
+  Fundamental value-investing research in Chinese or English for US-listed stocks and ADRs;
+  single-company reports, intrinsic valuation, owner earnings, and same-basis stock comparisons.
 ---
 
-# Value Investing Research v2.1 / 价值投资研究
+# 价值投资研究 v2.2 / Value Investing Research
 
-Produce source-driven, auditable value-investing research. The goal is not to tell a persuasive story; it is to expose what is known, what is estimated, what cannot be verified, what the valuation assumes, and what future evidence would overturn the conclusion.
+以可追溯来源为基础，生成可复核的价值投资研究。清楚区分已知事实、估计、不可验证事项、估值假设，以及哪些未来证据足以推翻结论。
 
-## Language selection / 语言选择
+## 语言选择 / Output language
 
-- Honor the user's explicit output-language request first, including English, 简体中文, 繁體中文, or bilingual output, even when the request is written in another language.
-- Otherwise use the language of the user's substantive request. For mixed Chinese/English, use the main prose language; tickers, financial acronyms, quoted sources, and this skill's default prompt do not determine the output language. Preserve the user's Chinese script.
-- For a ticker-only request, retain the conversation's established language; if there is none, default to English. Do not interrupt research solely to ask about language.
-- Apply the selected language to headings, narrative, table labels, risk/status explanations, and the final note. Read `references/language-guide.md` for terminology, unit conversion, and bilingual formatting.
-- Keep the research methodology and evidentiary standard identical across languages. Translate presentation, never change assumptions, formulas, source dates, or conclusions merely to suit a language.
+- 用户明确指定的输出语言优先，包括简体中文、繁體中文、英文或双语；提问本身使用什么语言不影响这一优先级。
+- 未指定时，跟随用户实际提问的主要语言，并保留其中文简繁体习惯。股票代码、财务缩写、引用资料及本 Skill 的默认提示不决定输出语言。
+- 仅输入股票代码时，沿用当前对话语言；没有可参考的对话语言时，默认中文。不要仅为确认语言而中断研究。
+- 标题、正文、表头、风险与状态解释、文末说明均使用选定语言。阅读 `references/language-guide.md`，按其中的术语、单位换算与双语排版规则执行。
+- 本 Skill 以中文编写，但完整支持英文报告。不同语言使用相同研究方法与证据标准；翻译不得改变假设、公式、来源日期或结论。
 
-## 0. Mandatory data integrity gate
+## 0. 数据口径检查（必须执行）
 
-Before analysis, freeze the data basis:
-- ticker/company, listing venue, ordinary-share/ADS ratio;
-- reporting currency, market-price currency, FX rate and FX date;
-- price/as-of date, market cap and share-count date;
-- latest annual/interim/quarterly filing dates;
-- segment definitions and any reclassification breaks.
+研究前固定以下口径：
+- 公司、股票代码、上市地点、普通股与美国存托股份（ADS）的换算比例；
+- 财报币种、股价币种、汇率及汇率日期；
+- 股价与估值基准日、市值及股本数据日期；
+- 最新年报、中报与季报的披露日期；
+- 分部定义，以及重分类导致的可比性中断。
 
-For ADRs/cross-currency stocks, never combine balance-sheet CNY/HKD/etc. with USD market cap before conversion. Prefer modeling in the financial-statement currency and convert only per-share/equity outputs once. Reconcile market cap from price × diluted shares/ADSs where possible.
+分析 ADR 或跨币种股票时，不得直接将人民币、港币等资产负债表金额与美元市值混用。优先以财报币种建模，最后对权益价值或每股价值进行一次币种转换。条件允许时，用股价 × 稀释后股数或 ADS 数核对市值。
 
-Label every material input as one of: `[R]` company-reported, `[C]` calculated, `[E]` estimate/assumption, `[3P]` third-party estimate. Never present `[3P]` as company disclosure.
+所有重要输入均标记来源属性：`[R]` 公司披露、`[C]` 计算所得、`[E]` 估计或假设、`[3P]` 第三方估计。不得将第三方估计写成公司披露。
 
-## 1. Research hierarchy
+## 1. 来源优先级
 
-1. Primary filings and official earnings materials.
-2. Official regulator/government sources for regulatory facts.
-3. Credible third-party research/news for industry context or undisclosed variables.
-4. Aggregators only as discovery/cross-check tools; recompute important ratios.
+1. 原始财报、监管申报文件及官方业绩材料。
+2. 涉及监管事实时，使用监管机构或政府官方资料。
+3. 行业背景或未披露变量可参考可信第三方研究与新闻。
+4. 聚合网站仅用于寻找线索或交叉验证，重要比率须重新计算。
 
-If a decisive input is not disclosed, say **“不可独立验证 / not independently verifiable”**. Do not manufacture precision by reverse-engineering an unsupported number.
+决定性输入未披露时，明确注明“不可独立验证（not independently verifiable）”。不得通过缺乏依据的倒推制造精确数字。
 
-## 2. Business-model physics
+## 2. 商业模式与经济结构
 
-Analyze the economic architecture before valuation: platform vs first-party, asset intensity, inventory ownership, fulfillment burden, gross margin, operating margin, capex/revenue, working-capital model, employee intensity, revenue/profit per employee, network effects, switching costs, and reinvestment requirements.
+估值前先分析：平台或自营模式、资产密集度、存货归属、履约负担、毛利率、营业利润率、资本开支占收入比例、营运资本模式、用工密集度、人均收入与利润、网络效应、转换成本及再投资需求。
 
-For comparisons, explicitly separate **business quality** from **valuation**. A superior business is not automatically the cheaper security. Test whether differences in margin/asset intensity have already been absorbed by P/S, P/B, EV/Sales or other upstream multiples, and whether forward P/E / EV-FCF / FCF yield converge downstream.
+比较公司时，分别判断企业质量与股票估值。优质企业未必对应更便宜的股票。检查利润率与资产密集度差异是否已反映在市销率（P/S）、市净率（P/B）、EV/Sales 等指标中，以及远期市盈率、EV/FCF、自由现金流收益率是否趋同。
 
-## 3. Earnings normalization and strategic-loss map
+## 3. 盈利正常化与战略亏损业务
 
-Build reported → normalized operating profit → NOPAT → FCF/owner-earnings bridges. Inspect investment gains/losses, impairments, disposals, SBC, interest income, minority interests, subsidies, one-time items, and temporary strategic spending.
+建立“披露口径 → 正常化营业利润 → 税后净营业利润（NOPAT）→ 自由现金流（FCF）或所有者盈余”的调整表。逐项检查投资损益、减值、资产处置、股权激励（SBC）、利息收入、少数股东权益、补贴、一次性项目及阶段性战略投入。
 
-For every large loss-making strategic initiative, record:
-- disclosed separately? yes/no;
-- latest actual quarterly loss or closest observable proxy;
-- internally controllable vs externally imposed driver;
-- management can stop/scale it? yes/no/partial;
-- current direction of loss and revenue contribution;
-- evidence source and confidence.
+对每项重大亏损战略业务，记录：
+- 是否单独披露；
+- 最新季度实际亏损，或最接近且可观察的替代指标；
+- 驱动因素来自内部可控决策，还是外部约束；
+- 管理层能否停止或调整规模：能、不能或部分能；
+- 亏损变化方向与收入贡献；
+- 证据来源与可信度。
 
-Never normalize a strategic loss away merely because management calls it investment.
+不得仅因管理层将亏损称为“投资”，就从正常化盈利中剔除。
 
-## 4. Reality-anchor test (mandatory)
+## 4. 现实锚检验（Reality Anchor，必须执行）
 
-Any steady-state assumption for a currently loss-making or abnormally depressed business must be compared with the latest actual run-rate.
+对当前亏损或盈利异常低迷的业务，所有稳态假设都须与最新实际经营水平比较。
 
-`reality_anchor = latest_quarter_actual × 4` (or a more appropriate disclosed run-rate).
+现实锚 = 最新季度实际值 × 4；如有更适当的已披露运行水平，可采用并说明理由。
 
-Report `steady_state_assumption / reality_anchor` and explain the gap. Default red flag: the assumed steady-state loss/profit improvement is more than 50% away from the latest annualized actual without concrete evidence for the bridge.
+展示“稳态假设 ÷ 现实锚”，解释差距。默认红旗：稳态亏损或盈利改善假设相对最新实际年化值偏离超过 50%，却没有具体证据支持调整过程。
 
-If the company does not disclose the input needed for the test:
-1. mark the test **FAILED: INPUT UNAVAILABLE** rather than passing it;
-2. identify any `[3P]` proxy separately;
-3. apply an explicit uncertainty/verifiability adjustment in scenario value or non-operating-asset treatment instead of silently hiding it in WACC;
-4. make disclosure improvement a monitoring trigger.
+公司未披露检验所需输入时：
+1. 标记“检验未通过：输入数据缺失（FAILED: INPUT UNAVAILABLE）”，不得视为通过；
+2. 单独标记任何 `[3P]` 替代估计；
+3. 在情景估值或非经营性资产处理中明确反映不确定性与可验证性调整，不得暗中塞入加权平均资本成本（WACC）；
+4. 将披露改善列为后续监测触发条件。
 
-## 5. Three-lens trend test (mandatory)
+## 5. 趋势三口径检验（必须执行）
 
-For the dominant earnings/revenue variable, show all three when data permit:
-- YoY: latest quarter vs same quarter last year;
-- QoQ/sequential: latest quarter vs immediately prior quarter;
-- YTD annualized or LTM vs prior full year.
+对决定性盈利或收入变量，在数据允许时同时展示：
+- 同比（YoY）：最新季度与上年同季度比较；
+- 环比（QoQ）：最新季度与上一季度比较；
+- 年初至今（YTD）年化值或过去十二个月（LTM），与上一完整年度比较。
 
-Do not call an inflection from one lens alone. Explain base effects and why the lenses agree or conflict. For 6-8 recent quarters, include earnings-surprise history when reliable consensus data are available; use it as evidence about predictability, not as a trading signal.
+不得仅凭单一口径判断拐点。解释基数效应，以及三种口径一致或矛盾的原因。若有可靠的一致预期数据，补充最近 6–8 个季度实际业绩相对预期的偏差，用于判断盈利可预测性，不用作交易信号。
 
-## 6. Cash-flow and balance-sheet quality
+## 6. 现金流与资产负债表质量
 
-Reconcile OCF to earnings and quantify working-capital contribution. For structurally negative-working-capital retailers/platforms, distinguish supplier/customer financing from durable distributable cash.
+将经营现金流（OCF）与利润进行勾稽，量化营运资本贡献。对于长期负营运资本的零售或平台企业，区分供应商、客户提供的资金与可持续分配的现金。
 
-Calculate current/quick ratios where meaningful, debt, net debt, interest coverage, tangible assets, goodwill, receivables, inventory, minority interests, NCAV, and Piotroski F-Score where inputs are reliable. Interpret rather than mechanically score.
+在经济意义明确且输入可靠时，计算流动比率、速动比率、债务、净债务、利息覆盖倍数、有形资产、商誉、应收账款、存货、少数股东权益、净流动资产价值（NCAV）及 Piotroski F-Score。解释指标含义，不机械打分。
 
-Owner earnings = NOPAT - minority-interest economic claim + D&A - maintenance capex - necessary working-capital increase.
+所有者盈余 = NOPAT − 少数股东的经济权益 + 折旧摊销（D&A）− 维持性资本开支 − 必要营运资本增加。
 
-Default necessary working-capital benefit to zero when historical benefits are not safely repeatable.
+历史营运资本收益无法可靠重复时，默认不计入未来收益。
 
-## 7. Capital allocation: cash is not automatically worth par
+## 7. 资本配置与现金折价
 
-Review dividends, actual repurchases, dilution/SBC, acquisitions/investments, and explicit management statements about returning capital.
+检查分红、实际回购、股本稀释与 SBC、收购和投资，以及管理层对股东回报的明确表态。
 
-Separate:
-- operating cash required for the business;
-- genuinely excess/non-operating cash;
-- cash legally/operationally trapped or strategically committed;
-- cash that management has demonstrated willingness to return.
+区分以下现金：
+- 经营所必需的现金；
+- 真正多余或非经营性的现金；
+- 受法律或经营限制、或已承诺用于战略投入的现金；
+- 管理层已表现出返还股东意愿的现金。
 
-If management behavior makes excess cash less valuable to minority shareholders, use an **explicit capital-allocation haircut** and show sensitivity. Never bury this haircut in WACC.
+若管理层行为降低超额现金对少数股东的价值，单列资本配置折价（capital-allocation haircut），并展示敏感性；不得将其隐藏在 WACC 中。
 
-`shareholder_value_of_cash = excess_cash × (1 - haircut)`
+现金的股东价值 = 超额现金 ×（1 − 资本配置折价率）。
 
-Haircut must be evidence-based and scenario-tested, not asserted as fact. At minimum show 0%, base haircut, and a harsher case when cash treatment is thesis-critical. State the **reversal trigger** (e.g. material dividend/buyback announcement) that would invalidate the haircut.
+折价须有证据支持并经过情景检验，不能当作已知事实。当现金处理决定投资判断时，至少展示 0%、基准折价和更严厉情景。列明会使折价失效的反转触发条件，例如重大分红或回购公告。
 
-## 8. ROIC and competitive durability
+## 8. 投入资本回报与竞争持续性
 
-Calculate normalized NOPAT / average invested capital and disclose the invested-capital definition. Compare with a documented WACC assumption. Explain whether value creation comes from operating returns, leverage, float/supplier financing, or asset-light economics.
+投入资本回报率（ROIC）= 正常化 NOPAT ÷ 平均投入资本。披露投入资本定义，并与有依据的 WACC 假设比较。解释价值创造来自经营回报、杠杆、浮存金或供应商融资，还是轻资产模式。
 
-Perform competitive due diligence: identify major rivals, where each competitor is investing, whether the company is forced to respond, and whether apparent margin improvement is sustainable under rational competitive response.
+开展竞争尽调：识别主要对手、各自投入方向、公司是否被迫跟进，以及在竞争对手合理回应后，当前利润率改善能否持续。
 
-## 9. Valuation architecture
+## 9. 估值框架
 
-Use multiple methods; DCF is primary, not sacred:
-- operating-asset DCF;
-- EPV where normalized economics are defensible;
-- conservative Graham-style earnings formula where applicable;
-- tangible book / liquidation anchors where economically relevant;
-- market-multiple comparison only as a cross-check.
+以现金流折现（DCF）为主要方法，结合以下方法交叉验证：
+- 经营资产 DCF；
+- 正常化经营假设有依据时，使用盈利能力价值（EPV）；
+- 适用时采用保守的 Graham 盈利估值公式；
+- 有经济意义时采用有形账面价值或清算价值作为参照；
+- 市场估值倍数仅作为交叉检查。
 
-Operating-asset DCF equity value = PV(operating FCF) + shareholder-value-of-non-operating-assets - debt/senior claims - minority-interest adjustments.
+DCF 权益价值 = 经营 FCF 的现值 + 非经营性资产的股东价值 − 债务与优先索偿权 − 少数股东权益调整。
 
-Use bear/base/bull scenarios. Change the dominant economic variables, not cosmetic assumptions. Avoid probability weights unless justified. If combining methods, disclose weights and why; never let a low-quality method dominate simply because it outputs a number.
+建立悲观、基准、乐观（Bear / Base / Bull）情景，改变决定经营结果的关键变量。有依据时才赋予情景概率。综合多种方法时，披露权重和理由，不能因为某种方法能算出数字，就让低质量方法主导结论。
 
-Show sensitivity for the one or two variables with the highest valuation elasticity. For comparisons, use the same date, currency treatment, metric definitions, and calculation script across companies.
+对影响估值最大的 1–2 个变量展示敏感性。比较多家公司时，统一日期、币种处理、指标定义与计算脚本。
 
-## 10. Forced falsification (mandatory)
+## 10. 强制自证伪（必须执行）
 
-Before the conclusion, add **“本报告最可能错在哪里 / Where this report is most likely wrong”** containing:
-1. the single assumption the conclusion depends on most;
-2. a sensitivity table around that assumption;
-3. the exact threshold where the conclusion materially changes;
-4. the strongest reasonable counterargument;
-5. 3-6 observable data points/events in the next 1-2 reporting periods that would adjudicate the thesis.
+在结论前设置“本报告最可能错在哪里（Where this report is most likely wrong）”，包括：
+1. 结论最依赖的单一假设；
+2. 围绕该假设的敏感性表；
+3. 足以使结论发生实质变化的明确阈值；
+4. 最有力且合理的反方论证；
+5. 未来 1–2 个财报期内可裁决投资判断的 3–6 项可观察数据或事件。
 
-A good thesis must be falsifiable by future evidence. If no observable test exists, lower confidence explicitly.
+投资判断必须能够被未来证据证伪。若不存在可观察的验证方式，明确降低可信度。
 
-## 11. Comparative mode
+## 11. 多公司比较模式
 
-When comparing two or more stocks, follow `references/comparison-protocol.md` and do not merely place two standalone reports side by side.
+比较两家或更多公司时，遵循 `references/comparison-protocol.md`，形成共同口径下的比较结论。
 
-Required comparison axes:
-- business-model physics;
-- normalized profitability and capital intensity;
-- same-basis valuation convergence/divergence;
-- strategic-loss controllability and disclosure;
-- earnings predictability;
-- capital return and cash accessibility;
-- risk structure (internal/controllable vs external/non-controllable);
-- verifiability of the key thesis inputs;
-- falsification triggers and next adjudication date.
+必须比较：
+- 商业模式与经济结构；
+- 正常化盈利能力与资本密集度；
+- 同口径估值的趋同与分化；
+- 战略亏损的可控性与披露程度；
+- 盈利可预测性；
+- 资本回报与现金可供股东使用的程度；
+- 风险结构：内部可控与外部不可控风险；
+- 投资判断关键输入的可验证性；
+- 自证伪触发条件及下一次验证日期。
 
-Do not collapse these axes into one opaque score. State trade-offs directly.
+直接说明各项取舍，不将这些维度压缩为不透明的单一评分。
 
-## 12. Revision protocol
+## 12. 修订机制
 
-For every revision keep a change log:
-`old assumption → new evidence → new assumption → valuation impact → conclusion impact`.
+每次修订保留记录：
+“旧假设 → 新证据 → 新假设 → 估值影响 → 结论影响”。
 
-If a segment definition changes, mark the comparability break and replace broken monitoring metrics with observable proxies. If new evidence materially changes intrinsic value, margin of safety, or a key risk, revise the conclusion instead of defending the old one.
+分部定义变化时，标记可比性中断，并用可观察的替代指标更新失效监测项。新证据实质改变内在价值、安全边际或关键风险时，同步修改结论。
 
-## 13. Deterministic calculations
+## 13. 确定性计算
 
-Use `scripts/valuation.py` when useful. Show formulas, units and source dates. Required formulas include:
-- Normalized NOPAT = normalized operating profit × (1 - normalized tax rate)
-- Normalized FCF = NOPAT - minority claim + D&A - normalized capex - necessary WC increase
-- ROIC = normalized NOPAT / average invested capital
-- NCAV = current assets - total liabilities
-- Margin of safety = (intrinsic value - market price) / intrinsic value
-- Adjusted excess cash = excess cash × (1 - capital-allocation haircut)
-- Reality-anchor ratio = steady-state assumption / annualized latest actual
+适用时调用 `scripts/valuation.py`，展示公式、单位和来源日期。核心公式如下：
+- 正常化 NOPAT = 正常化营业利润 ×（1 − 正常化税率）
+- 正常化 FCF = NOPAT − 少数股东权益要求 + D&A − 正常化资本开支 − 必要营运资本增加
+- ROIC = 正常化 NOPAT ÷ 平均投入资本
+- NCAV = 流动资产 − 总负债
+- 安全边际 =（内在价值 − 市场价格）÷ 内在价值
+- 调整后超额现金 = 超额现金 ×（1 − 资本配置折价率）
+- 现实锚比率 = 稳态假设 ÷ 最新实际值年化数
 
-## 14. Output
+## 14. 输出要求
 
-Follow `references/report-structure.md` and the language-selection rules above. Reference headings are structural guidance, not a requirement to output English. Separate facts, assumptions, calculations, third-party estimates, and interpretations. Use compact tables for comparisons. Avoid hype, certainty language, and personalized buy/sell instructions. End with a source table and non-advisory note.
+遵循 `references/report-structure.md` 及上述语言规则。参考文档标题用于指导结构，最终按用户选择的语言呈现。区分事实、假设、计算、第三方估计与分析判断；比较内容使用紧凑表格。避免夸大、确定性措辞及个性化买卖指令。文末附来源表和非投资建议说明。
